@@ -1,20 +1,89 @@
-// DoubleLinkedList.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+
+using namespace std;
+
+#define ListSize 15
+#define MaxValue 20
+
+struct TListItem
+{
+    int Value;
+    TListItem *Next, *Prev;
+};
+
+struct TList
+{
+    TListItem *First, *Last;
+};
+
+TList InitList()
+{
+    TList r;
+    r.First = NULL;
+    r.Last = NULL;
+    return r;
+}
+
+void AddListItem(TList &List, int val)
+{
+    if (List.First == NULL)
+    {
+        List.First = (TListItem*)malloc(sizeof(TListItem));
+        List.First->Next = NULL;
+        List.First->Prev = NULL;
+        List.First->Value = val;
+        List.Last = List.First;
+    }
+    else
+    {
+        List.Last->Next = (TListItem*)malloc(sizeof(TListItem));
+        List.Last->Next->Prev = List.Last;
+        List.Last->Next->Next = NULL;
+        List.Last->Next->Value = val;
+        List.Last = List.Last->Next;
+    }
+}
+
+void DestroyList(TList& List)
+{
+    TListItem *t = List.First;
+    TListItem *r;
+
+    while (t != NULL)
+    {
+        r = t->Next;
+        free(t);
+        t = r;
+    }
+
+    List.First = List.Last = NULL;
+}
+
+void PrintList(TList& List)
+{
+    TListItem *t = List.First;
+
+    while (t != NULL)
+    {
+        printf("%i ", t->Value);
+        t = t->Next;
+    }
+
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    TList List = InitList();
+
+    for (int i = 0; i < ListSize; i++)
+    {
+        AddListItem(List, i);
+    }
+
+    PrintList(List);
+
+
+
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
