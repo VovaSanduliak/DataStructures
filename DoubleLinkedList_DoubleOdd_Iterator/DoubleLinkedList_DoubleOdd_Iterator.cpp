@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 #define ListSize 15
 #define MaxValue 20
@@ -8,17 +12,17 @@
 struct TListItem
 {
     int Value;
-    TListItem *Next, *Prev;
+    TListItem* Next, * Prev;
 };
 
 struct TList
 {
-    TListItem *First, *Last;
+    TListItem* First, * Last;
 };
 
 struct TListIterator
 {
-    TListItem *pointer;
+    TListItem* pointer;
 };
 
 TListIterator InitIterator()
@@ -72,11 +76,11 @@ TListIterator GetEnd(TList& L)
     return r;
 }
 
-void InsertAfter(TList &L, const TListIterator &It, int value)
+void InsertAfter(TList& L, const TListIterator& It, int value)
 {
     if (!IsValid(It))
         return;
-    TListItem *t = (TListItem*)malloc(sizeof(TListItem));
+    TListItem* t = (TListItem*)malloc(sizeof(TListItem));
     t->Value = value;
     t->Next = It.pointer->Next;
     t->Prev = It.pointer;
@@ -160,8 +164,8 @@ void AddListItem(TList& List, int val)
 
 void DestroyList(TList& List)
 {
-    TListItem *t = List.First;
-    TListItem *r;
+    TListItem* t = List.First;
+    TListItem* r;
 
     while (t != NULL)
     {
@@ -173,9 +177,9 @@ void DestroyList(TList& List)
     List.First = List.Last = NULL;
 }
 
-void PrintList(TList &List)
+void PrintList(TList& List)
 {
-    TListItem *t = List.First;
+    TListItem* t = List.First;
 
     while (t != NULL)
     {
@@ -185,7 +189,73 @@ void PrintList(TList &List)
 
 }
 
+void DoubleOdd(TList& List) {
+    TListIterator cur = GetBegin(List);
+
+    while (IsValid(cur))
+    {
+        if (GetValue(cur) % 2 == 0)
+        {
+            MoveNext(cur);
+        }
+        else
+        {
+            InsertAfter(List, cur, GetValue(cur));
+
+            MoveNext(cur);
+            MoveNext(cur);
+        }
+    }
+}
+
+void FillList(TList& List)
+{
+    ifstream file("data.txt");
+
+    if (!file)
+    {
+        // cerr
+    }
+
+    int input;
+    while (file >> input)
+    {
+        AddListItem(List, input);
+    }
+}
+
 int main()
 {
+    TList L;
+    L = InitList();
+    for (int i = 0; i < ListSize; i++)
+    {
+        AddListItem(L, i);
+    }
+
+    PrintList(L);
+    printf("\n");
+    TListIterator t = GetBegin(L);
+    while (IsValid(t))
+    {
+        InsertBefore(L, t, GetValue(t));
+        MoveNext(t);
+    }
+
+    PrintList(L);
+    printf("\n");
+    t = GetBegin(L);
+    while (IsValid(t))
+    {
+        if (GetValue(t) % 2 != 0)
+            DeleteItem(L, t);
+        else
+            MoveNext(t);
+
+        PrintList(L);
+        printf("\n");
+        DestroyList(L);
+    }
+
     return 0;
 }

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoubleLinkedList", "DoubleL
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoubleLinkedList_DoubleOdd", "DoubleLinkedList_DoubleOdd\DoubleLinkedList_DoubleOdd.vcxproj", "{CC978D21-6AB7-4330-8D00-B2ED06A0E27B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoubleLinkedList_DoubleOdd_Iterator", "DoubleLinkedList_DoubleOdd_Iterator\DoubleLinkedList_DoubleOdd_Iterator.vcxproj", "{CF39D4A5-2012-40E3-A86F-07B7F7A27829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{CC978D21-6AB7-4330-8D00-B2ED06A0E27B}.Release|x64.Build.0 = Release|x64
 		{CC978D21-6AB7-4330-8D00-B2ED06A0E27B}.Release|x86.ActiveCfg = Release|Win32
 		{CC978D21-6AB7-4330-8D00-B2ED06A0E27B}.Release|x86.Build.0 = Release|Win32
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Debug|x64.ActiveCfg = Debug|x64
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Debug|x64.Build.0 = Debug|x64
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Debug|x86.Build.0 = Debug|Win32
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Release|x64.ActiveCfg = Release|x64
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Release|x64.Build.0 = Release|x64
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Release|x86.ActiveCfg = Release|Win32
+		{CF39D4A5-2012-40E3-A86F-07B7F7A27829}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
