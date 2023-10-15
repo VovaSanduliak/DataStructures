@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{fede7b43-8b85-495f-9d9a-59328152dbe8}</ProjectGuid>
-    <RootNamespace>QueueDivideQueues</RootNamespace>
+    <ProjectGuid>{5ae1362b-fc3e-4aa8-a862-9e6aacf41536}</ProjectGuid>
+    <RootNamespace>StackCountEqualNeighbors</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Queue_DivideQueues.cpp" />
+    <ClCompile Include="Stack_CountEqualNeighbors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />

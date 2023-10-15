@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4cd07e3e-d81b-4a3d-bae0-42ed5b6678ad}</ProjectGuid>
-    <RootNamespace>StackCountTheSameNeighbors</RootNamespace>
+    <ProjectGuid>{ad14d428-b90b-4466-93db-43781d89ed83}</ProjectGuid>
+    <RootNamespace>QueueMergeQueues</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Stack_CountTheSameNeighbors.cpp" />
+    <ClCompile Include="Queue_MergeQueues.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

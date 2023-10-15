@@ -1,46 +1,44 @@
-#include <iostream>
-
 struct TQueueItem
 {
 	int Value;
-	TQueueItem *Next;
-	TQueueItem *Prev;
+	TQueueItem* Next;
+	TQueueItem* Prev;
 };
 
 struct TQueue
 {
-	TQueueItem *Head;
-	TQueueItem *Tail;
+	TQueueItem* Head;
+	TQueueItem* Tail;
 };
 
 TQueue InitQueue()
 {
 	TQueue r;
-	r.Head = NULL;
-	r.Tail = NULL;
+	r.Head = nullptr;
+	r.Tail = nullptr;
 	return r;
 }
 
-int IsEmpty(const TQueue& Q)
+bool IsEmpty(const TQueue& Q)
 {
-	return Q.Head == NULL;
+	return Q.Head == nullptr;
 }
 
 void EnQueue(TQueue& Q, int v)
 {
-	if (!Q.Tail)
+	if (IsEmpty(Q))
 	{
 		Q.Head = new TQueueItem;
 		Q.Head->Value = v;
-		Q.Head->Next = NULL;
-		Q.Head->Prev = NULL;
+		Q.Head->Next = nullptr;
+		Q.Head->Prev = nullptr;
 		Q.Tail = Q.Head;
 	}
 	else
 	{
-		Q.Tail->Next = new TQueueItem;
+		Q.Tail->Next = new TQueueItem();
 		Q.Tail->Next->Value = v;
-		Q.Tail->Next->Next = NULL;
+		Q.Tail->Next->Next = nullptr;
 		Q.Tail->Next->Prev = Q.Tail->Next;
 		Q.Tail = Q.Tail->Next;
 	}
@@ -52,12 +50,12 @@ int DeQueue(TQueue& Q)
 		return 0;
 
 	int result = Q.Head->Value;
-	TQueueItem *t = Q.Head;
+	TQueueItem* t = Q.Head;
 	Q.Head = Q.Head->Next;
 	delete t;
 
 	if (Q.Head)
-		Q.Head->Prev = NULL;
+		Q.Head->Prev = nullptr;
 	else
 		Q.Tail = Q.Head;
 
@@ -70,17 +68,12 @@ void _DestroyQueue(TQueueItem*& T)
 	{
 		_DestroyQueue(T->Next);
 		delete T;
-		T = NULL;
+		T = nullptr;
 	}
 }
 
-void DestroyQueue(TQueue &Q)
+void DestroyQueue(TQueue& Q)
 {
 	_DestroyQueue(Q.Head);
 	Q.Tail = Q.Head;
-}
-
-int main()
-{
-
 }

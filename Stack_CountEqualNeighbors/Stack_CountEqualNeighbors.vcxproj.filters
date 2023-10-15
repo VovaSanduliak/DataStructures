@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Queue_DivideQueues.cpp">
+    <ClCompile Include="Stack_CountEqualNeighbors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
