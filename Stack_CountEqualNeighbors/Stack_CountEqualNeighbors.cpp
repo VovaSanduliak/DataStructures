@@ -67,7 +67,7 @@ void Fill(TStack*& S)
 
 	if (!file)
 	{
-		// cerr
+		cerr << "Couldn't open the file" << endl;
 	}
 
 	int input;

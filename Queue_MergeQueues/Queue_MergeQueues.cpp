@@ -98,6 +98,36 @@ void Fill(TQueue& Q)
 	}
 }
 
+bool IsUnique(TQueue& Q, int val)
+{
+	TQueue tempQueue = InitQueue();
+	bool isUnique = true;
+
+	int currValue = 0;
+
+	if (!IsEmpty(Q))
+	{
+		DeQueue(Q, currValue);
+		EnQueue(tempQueue, currValue);
+	}
+
+	while (!IsEmpty(Q))
+	{
+		DeQueue(Q, currValue);
+		EnQueue(Q, currValue);
+
+		if (currValue == val)
+		{
+			isUnique = false;
+		}
+	}
+
+	Q.Head = tempQueue.Head;
+	Q.Tail = tempQueue.Tail;
+	
+	return isUnique;
+}
+
 void SeparateQueue(TQueue& Queue, TQueue& Queue1, TQueue& Queue2)
 {
 	TQueue *tempQueue = new TQueue;
@@ -110,10 +140,14 @@ void SeparateQueue(TQueue& Queue, TQueue& Queue1, TQueue& Queue2)
 	{
 		DeQueue(Queue, currValue);
 
-		if (currValue > 0)
+		if (currValue > 0 && IsUnique(Queue, currValue))
+		{
 			EnQueue(Queue1, currValue);
-		else
+		}
+		else if (!IsUnique(Queue, currValue))
+		{
 			EnQueue(Queue2, currValue);
+		}
 
 		EnQueue(*tempQueue, currValue);
 	}
@@ -131,7 +165,13 @@ void SeparateQueue(TQueue& Queue, TQueue& Queue1, TQueue& Queue2)
 
 void Output(TQueue S)
 {
+	TQueue *tempQueue = new TQueue();
+	int currValue = 0;
 
+	while (!IsEmpty(S))
+	{
+		DeQueue(S, currValue)
+	}
 }
 
 int main()
