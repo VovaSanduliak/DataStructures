@@ -98,69 +98,77 @@ void Fill(TQueue& Q)
 	}
 }
 
-bool IsUnique(TQueue& Q, int val)
+int GetCount(TQueue& Q)
 {
 	TQueue tempQueue = InitQueue();
-	bool isUnique = true;
-
+	int count = 0;
 	int currValue = 0;
-
-	if (!IsEmpty(Q))
-	{
-		DeQueue(Q, currValue);
-		EnQueue(tempQueue, currValue);
-	}
 
 	while (!IsEmpty(Q))
 	{
 		DeQueue(Q, currValue);
+		EnQueue(tempQueue, currValue);
+		count++;
+	}
+
+	while (!IsEmpty(tempQueue))
+	{
+		DeQueue(tempQueue, currValue);
 		EnQueue(Q, currValue);
+	}
+
+	return count;
+}
+
+int CountRepeat(TQueue& Q, int val)
+{
+	TQueue tempQueue = InitQueue();
+	int count = 0;
+	int currValue = 0;
+	bool isUnique = false;
+
+	while (!IsEmpty(Q))
+	{
+		DeQueue(Q, currValue);
+		EnQueue(tempQueue, currValue);
 
 		if (currValue == val)
 		{
-			isUnique = false;
+			count++;
 		}
 	}
 
-	Q.Head = tempQueue.Head;
-	Q.Tail = tempQueue.Tail;
-	
-	return isUnique;
+	while (!IsEmpty(tempQueue))
+	{
+		DeQueue(tempQueue, currValue);
+		EnQueue(Q, currValue);
+	}
+
+	return count;
+}
+
+bool IsUnique(TQueue& Q, int val)
+{
+	return CountRepeat(Q, val) == 1;	
 }
 
 void SeparateQueue(TQueue& Queue, TQueue& Queue1, TQueue& Queue2)
 {
-	TQueue *tempQueue = new TQueue;
-	tempQueue->Head = nullptr;
-	tempQueue->Tail = nullptr;
+	TQueue tempQueue = InitQueue();
 
 	int currValue = 0;
 
-	while (!IsEmpty(Queue))
+	int count = GetCount(Queue);
+	for (int i = 0; i < count; i++)
 	{
 		DeQueue(Queue, currValue);
-
-		if (currValue > 0 && IsUnique(Queue, currValue))
-		{
-			EnQueue(Queue1, currValue);
-		}
-		else if (!IsUnique(Queue, currValue))
-		{
-			EnQueue(Queue2, currValue);
-		}
-
-		EnQueue(*tempQueue, currValue);
-	}
-
-	/*while (!IsEmpty(tempQueue))
-	{
-		DeQueue(tempQueue, currValue);
 		EnQueue(Queue, currValue);
-	}*/
-
-	Queue.Head = tempQueue->Head;
-	Queue.Tail = tempQueue->Tail;
-	delete tempQueue;
+		
+		if (currValue > 0 && IsUnique(Queue, currValue))
+			EnQueue(Queue1, currValue);
+		else if (currValue <= 0 && !IsUnique(Queue, currValue))
+			EnQueue(Queue2, currValue);
+	}
 }
 
 void Output(TQueue S)
@@ -170,7 +178,7 @@ void Output(TQueue S)
 
 	while (!IsEmpty(S))
 	{
-		DeQueue(S, currValue)
+		DeQueue(S, currValue);
 	}
 }
 

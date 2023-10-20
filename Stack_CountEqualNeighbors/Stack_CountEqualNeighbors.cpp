@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#define NEWLINE cout << endl;
 
 using namespace std;
 
@@ -53,12 +54,28 @@ void DestroyStack(TStack*& S)
 	}
 }
 
-void Output(TStack S)
+void Output(TStack*& S)
 {
-	while (!IsEmpty(&S))
-	{
+	TStack* tempStack = nullptr;
 
+	while (!IsEmpty(S))
+	{
+		int value;
+		Pop(S, value);
+		Push(tempStack, value);
 	}
+
+	while (!IsEmpty(tempStack))
+	{
+		int value;
+		Pop(tempStack, value);
+		cout << value << " ";
+		Push(S, value);
+	}
+
+	DestroyStack(tempStack);
+
+	NEWLINE
 }
 
 void Fill(TStack*& S)
@@ -115,15 +132,18 @@ int CountEqualNeighbors(TStack*& S)
 		Push(S, curr);
 	}
 
+	DestroyStack(tempStack);
+
 	return count;
 }
 
-void main()
+int main()
 {
 	TStack* S = nullptr;
 	Fill(S);
+	Output(S);
 
-	cout << CountEqualNeighbors(S) << endl;
+	cout << "Count of equal neighbors in the stack: " <<  CountEqualNeighbors(S) << endl;
 
-
+	DestroyStack(S);
 }
