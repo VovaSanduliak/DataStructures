@@ -1,9 +1,7 @@
+#include <fstream>
 #include <iostream>
 
 using namespace std;
-
-#define ListSize 15
-#define MaxValue 20
 
 struct TListItem
 {
