@@ -171,14 +171,22 @@ void SeparateQueue(TQueue& Queue, TQueue& Queue1, TQueue& Queue2)
 	}
 }
 
-void Output(TQueue S)
+void Output(TQueue& Q)
 {
-	TQueue *tempQueue = new TQueue();
+	TQueue tempQueue = InitQueue();
 	int currValue = 0;
 
-	while (!IsEmpty(S))
+	while (!IsEmpty(Q))
 	{
-		DeQueue(S, currValue);
+		DeQueue(Q, currValue);
+		EnQueue(tempQueue, currValue);
+	}
+
+	while (!IsEmpty(tempQueue))
+	{
+		DeQueue(tempQueue, currValue);
+		EnQueue(Q, currValue);
+		cout << currValue << " ";
 	}
 }
 
@@ -190,7 +198,16 @@ int main()
 	Fill(Queue);
 	SeparateQueue(Queue, Queue1, Queue2);
 
-	
+	cout << "Queue: ";
+	Output(Queue);
+
+	cout << endl;
+	cout << "Queue1 (unique positive elements): ";
+	Output(Queue1);
+
+	cout << endl;
+	cout << "Queue2 (other ununique elements): ";
+	Output(Queue2);
 
 	cout << "" << endl;
 }
