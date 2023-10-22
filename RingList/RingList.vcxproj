@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{dc0c725f-e2b1-4bad-b627-8c385b3b82da}</ProjectGuid>
+    <ProjectGuid>{c18671d1-643f-4fa3-b1dd-eaf6754deae1}</ProjectGuid>
     <RootNamespace>RingList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -130,7 +130,9 @@
     <ClCompile Include="RingList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data.txt" />
+    <Text Include="Participants.txt" />
+    <Text Include="Prizes.txt" />
+    <Text Include="Winners.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

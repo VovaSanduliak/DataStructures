@@ -16,20 +16,20 @@ struct TListItem
     TListItem* Next, * Prev;
 };
 
-struct TList
+struct TRingList
 {
     TListItem* First, * Last;
 };
 
-TList InitList()
+TRingList InitRingList()
 {
-    TList r;
+    TRingList r;
     r.First = NULL;
     r.Last = NULL;
     return r;
 }
 
-void AddListItem(TList& List, int val)
+void AddListItem(TRingList& List, int val)
 {
     if (List.First == NULL)
     {
@@ -49,7 +49,7 @@ void AddListItem(TList& List, int val)
     }
 }
 
-void DestroyList(TList& List)
+void DestroyList(TRingList& List)
 {
     TListItem* t = List.First;
     TListItem* r;
@@ -64,7 +64,7 @@ void DestroyList(TList& List)
     List.First = List.Last = NULL;
 }
 
-void PrintList(TList& List)
+void PrintList(TRingList& List)
 {
     TListItem* t = List.First;
 
@@ -76,7 +76,7 @@ void PrintList(TList& List)
 
 }
 
-void DoubleOdd(TList& List) {
+void DoubleOdd(TRingList& List) {
     TListItem* CurItem = List.First;
 
     while (CurItem != NULL) {
@@ -103,7 +103,7 @@ void DoubleOdd(TList& List) {
     }
 }
 
-void FillList(TList& List)
+void FillList(TRingList& List)
 {
     ifstream file("data.txt");
 
@@ -121,7 +121,7 @@ void FillList(TList& List)
 
 int main()
 {
-    TList List = InitList();
+    TRingList List = InitRingList();
 
     FillList(List);
 

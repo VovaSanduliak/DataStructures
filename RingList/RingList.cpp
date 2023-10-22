@@ -1,83 +1,157 @@
-#include <fstream>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
-struct TListItem
+struct TRingListItem
 {
-    int Value;
-    TListItem* Next, * Prev;
+	string Value;
+	TRingListItem* Next;
+	TRingListItem* Prev;
 };
 
-struct TList
+struct TRingList
 {
-    TListItem* First;
+	TRingListItem* First;
 };
 
-TList InitList()
+TRingList InitRingList()
 {
-    TList r;
-    r.First = NULL;
-    return r;
+	TRingList l;
+	l.First = NULL;
+	return l;
 }
 
-void AddListItem(TList& List, int val)
+void AddListItem(TRingList& List, string val)
 {
-    if (List.First == NULL)
-    {
-        List.First = new TListItem();
-        List.First->Next = NULL;
-        List.First->Prev = NULL;
-        List.First->Value = val;
-        
-    }
-    else
-    {
-        List.Last->Next = new TListItem();
-        List.Last->Next->Prev = List.Last;
-        List.Last->Next->Next = NULL;
-        List.Last->Next->Value = val;
-        List.Last = List.Last->Next;
-    }
+	if (!List.First)
+	{
+		List.First = new TRingListItem();
+		List.First->Value = val;
+		List.First->Next = List.First;
+		List.First->Prev = List.First;
+	}
+	else
+	{
+		List.First->Prev->Next = new TRingListItem();
+		List.First->Prev->Next->Value = val;
+		List.First->Prev->Next->Prev = List.First->Prev;
+		List.First->Prev->Next->Next = List.First;
+		List.First->Prev = List.First->Prev->Next;
+	}
 }
 
-void DestroyList(TList& List)
+void DeleteListItem(TRingList& List, TRingListItem& Item)
 {
-    TListItem* t = List.First;
-    TListItem* r;
-
-    while (t != NULL)
-    {
-        r = t->Next;
-        free(t);
-        t = r;
-    }
-
-    List.First = NULL;
+	if (&Item != List.First)
+	{
+		Item.Prev->Next = Item.Next;
+		Item.Next->Prev = Item.Prev;
+		delete &Item;
+	}
+	else
+	{
+		Item.Prev->Next = Item.Next;
+		Item.Next->Prev = Item.Prev;
+		List.First = Item.Next;
+		delete &Item;
+	}
 }
 
-void PrintList(TList& List)
+void DestroyList(TRingList& List)
 {
-    TListItem* t = List.First;
+	if (!List.First)
+		return;
 
-    while (t != NULL)
-    {
-        printf("%i ", t->Value);
-        t = t->Next;
-    }
+	TRingListItem* curr = List.First;
+	TRingListItem* next;
 
+	do
+	{
+		next = curr->Next;
+		delete curr;
+		curr = next;
+	} while (curr != List.First);
+
+	List.First = nullptr;
+}
+
+void PrintList(TRingList& List)
+{
+	TRingListItem* t = List.First;
+
+	do
+	{
+		cout << t->Value << " ";
+		t = t->Next;
+	} while (t != List.First);
+}
+
+void FillList(TRingList& List, string fileName)
+{
+	ifstream file(fileName);
+
+	if (!file)
+	{
+		cerr << "Couldn't open the file" << endl;
+	}
+
+	string line;
+
+	while (getline(file, line))
+	{
+		AddListItem(List, line);
+	}
 }
 
 int main()
 {
-    TList List = InitList();
+	TRingList participants = InitRingList();
+	TRingList prizes = InitRingList();
+	FillList(participants, "Participants.txt");
+	FillList(prizes, "Prizes.txt");
 
-    for (int i = 0; i < ListSize; i++)
-    {
-        AddListItem(List, i);
-    }
+	int N = 5;
+	int K = 7;
+	int T = 10;
 
-    PrintList(List);
+	TRingListItem* participant = participants.First;
+	TRingListItem* prize = prizes.First;
 
-    return 0;
+	ofstream winnersFile;
+	winnersFile.open("Winners.txt");
+
+	cout << "Results:" << endl;
+
+	for (int i = 1; i <= N; i++)
+	{
+		for (int j = 1; j < K; j++)
+		{
+			participant = participant->Next;
+		}
+
+		for (int j = 1; j < T; j++)
+		{
+			prize = prize->Next;
+		}
+
+
+		if (winnersFile)
+		{
+			winnersFile 
+				<< "Winner " << i << ": " << participant->Value << "\nPrize: " << prize->Value 
+				<< endl << endl;
+		}
+
+		TRingListItem* tempParticipant = participant->Next;
+		DeleteListItem(participants, *participant);
+
+		participant = tempParticipant;
+		prize = prize->Next;
+	}
+
+	DestroyList(participants);
+	DestroyList(prizes);
+	int a = 0;
 }

@@ -20,8 +20,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data.txt">
-      <Filter>Source Files</Filter>
-    </Text>
+    <Text Include="Participants.txt" />
+    <Text Include="Prizes.txt" />
+    <Text Include="Winners.txt" />
   </ItemGroup>
 </Project>
