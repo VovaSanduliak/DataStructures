@@ -16,6 +16,54 @@ struct TRingList
 	TRingListItem* First;
 };
 
+struct TRingListIterator
+{
+	TRingListItem* pointer;
+};
+
+TRingListIterator InitIterator()
+{
+	TRingListIterator r;
+	r.pointer = nullptr;
+	return r;
+}
+
+inline int IsValid(TRingListIterator It)
+{
+	return It.pointer != nullptr;
+}
+
+void MoveNext(TRingListIterator& It)
+{
+	if (IsValid(It))
+		It.pointer = It.pointer->Next;
+}
+
+void MovePrevious(TRingListIterator& It)
+{
+	if (IsValid(It))
+		It.pointer = It.pointer->Prev;
+}
+
+string GetValue(const TRingListIterator& It)
+{
+	if (IsValid(It))
+		return It.pointer->Value;
+}
+
+void SetValue(TRingListIterator& It, string value)
+{
+	if (IsValid(It))
+		It.pointer->Value = value;
+}
+
+TRingListIterator GetBegin(TRingList& L)
+{
+	TRingListIterator r;
+	r.pointer = L.First;
+	return r;
+}
+
 TRingList InitRingList()
 {
 	TRingList l;
@@ -42,7 +90,28 @@ void AddListItem(TRingList& List, string val)
 	}
 }
 
-void DeleteListItem(TRingList& List, TRingListItem& Item)
+void DeleteItem(TRingList& L, TRingListIterator& It)
+{
+	if (!IsValid(It))
+		return;
+
+	if (It.pointer == L.First)
+		L.First = It.pointer->Next;
+
+	TRingListItem* t1 = It.pointer->Prev;
+	TRingListItem* t2 = It.pointer->Next;
+	
+	delete It.pointer;
+	It.pointer = t2;
+
+	if (t2 != nullptr)
+		t2->Prev = t1;
+
+	if (t1 != nullptr)
+		t1->Next = t2;
+}
+
+void _DeleteListItem(TRingList& List, TRingListItem& Item)
 {
 	if (&Item != List.First)
 	{
@@ -112,46 +181,52 @@ int main()
 	FillList(participants, "Participants.txt");
 	FillList(prizes, "Prizes.txt");
 
-	int N = 5;
-	int K = 7;
-	int T = 10;
+	int N, K, T; // 5, 7, 10
 
-	TRingListItem* participant = participants.First;
-	TRingListItem* prize = prizes.First;
+	cout << "Enter:\nN (number of winners)\nK (each Kth is winner)\nT (each winner gets each Tth prize):" << endl;
+	cin >> N >> K >> T;
+
+	//TRingListItem* participant = participants.First;
+	//TRingListItem* prize = prizes.First;
+	TRingListIterator participant = GetBegin(participants);
+	TRingListIterator prize = GetBegin(prizes);
 
 	ofstream winnersFile;
 	winnersFile.open("Winners.txt");
-
-	cout << "Results:" << endl;
 
 	for (int i = 1; i <= N; i++)
 	{
 		for (int j = 1; j < K; j++)
 		{
-			participant = participant->Next;
+			//participant = participant->Next;
+			MoveNext(participant);
 		}
 
 		for (int j = 1; j < T; j++)
 		{
-			prize = prize->Next;
+			//prize = prize->Next;
+			MoveNext(prize);
 		}
-
 
 		if (winnersFile)
 		{
-			winnersFile 
-				<< "Winner " << i << ": " << participant->Value << "\nPrize: " << prize->Value 
-				<< endl << endl;
+			//winnersFile << "Winner " << i << ": " << participant->Value << "\nPrize: " << prize->Value << endl << endl;
+			winnersFile << "Winner " << i << ": " << GetValue(participant) << "\nPrize: " << GetValue(prize) << endl << endl;
 		}
 
-		TRingListItem* tempParticipant = participant->Next;
-		DeleteListItem(participants, *participant);
+		//TRingListItem* tempParticipant = participant->Next;
+		//DeleteListItem(participants, *participant);
+		TRingListIterator tempParticipant = participant;
+		DeleteItem(participants, tempParticipant); // ? DeleteItem(participants, tempParticipant);
 
+		//participant = tempParticipant;
+		//prize = prize->Next;
 		participant = tempParticipant;
-		prize = prize->Next;
+		MoveNext(participant);
+		MoveNext(prize);
 	}
 
 	DestroyList(participants);
 	DestroyList(prizes);
-	int a = 0;
+	cout << "Result has been written in the file:" << endl;
 }
