@@ -1,52 +1,50 @@
 #include "Queue.h"
 using namespace std;
 
-TQueue InitQueue()
+void TQueue::InitQueue()
 {
-	TQueue r;
-	r.Head = nullptr;
-	r.Tail = nullptr;
-	return r;
+	Head = nullptr;
+	Tail = nullptr;
 }
 
-bool IsEmpty(const TQueue& Q)
+bool TQueue::IsEmpty()
 {
-	return Q.Head == nullptr;
+	return Head == nullptr;
 }
 
-void EnQueue(TQueue& Q, int v)
+void TQueue::EnQueue(int val)
 {
-	if (IsEmpty(Q))
+	if (IsEmpty())
 	{
-		Q.Head = new TQueueItem;
-		Q.Head->Value = v;
-		Q.Head->Next = nullptr;
-		Q.Head->Prev = nullptr;
-		Q.Tail = Q.Head;
+		Head = new TQueueItem;
+		Head->Value = val;
+		Head->Next = nullptr;
+		Head->Prev = nullptr;
+		Tail = Head;
 	}
 	else
 	{
-		Q.Tail->Next = new TQueueItem();
-		Q.Tail->Next->Value = v;
-		Q.Tail->Next->Next = nullptr;
-		Q.Tail->Next->Prev = Q.Tail->Next;
-		Q.Tail = Q.Tail->Next;
+		Tail->Next = new TQueueItem();
+		Tail->Next->Value = val;
+		Tail->Next->Next = nullptr;
+		Tail->Next->Prev = Tail->Next;
+		Tail = Tail->Next;
 	}
 }
 
-bool DeQueue(TQueue& Q, int& value)
+bool TQueue::DeQueue(int& val)
 {
-	if (IsEmpty(Q)) return false;
+	if (IsEmpty()) return false;
 
-	value = Q.Head->Value;
-	TQueueItem* t = Q.Head;
-	Q.Head = Q.Head->Next;
+	val = Head->Value;
+	TQueueItem* t = Head;
+	Head = Head->Next;
 	delete t;
 
-	if (Q.Head)
-		Q.Head->Prev = nullptr;
+	if (Head)
+		Head->Prev = nullptr;
 	else
-		Q.Tail = Q.Head;
+		Tail = Head;
 
 	return true;
 }
@@ -61,8 +59,8 @@ void _DestroyQueue(TQueueItem*& T)
 	}
 }
 
-void DestroyQueue(TQueue& Q)
+void TQueue::DestroyQueue()
 {
-	_DestroyQueue(Q.Head);
-	Q.Tail = Q.Head;
+	_DestroyQueue(Head);
+	Tail = Head;
 }

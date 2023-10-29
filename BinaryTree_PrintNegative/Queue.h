@@ -14,20 +14,11 @@ struct TQueue
 {
 	TQueueItem* Head;
 	TQueueItem* Tail;
+
+	void InitQueue();
+	bool IsEmpty();
+	void EnQueue(int val);
+	bool DeQueue(int& value);
+	void DestroyQueue();
 };
 
-TQueue InitQueue();
-
-bool IsEmpty(const TQueue& Q);
-
-
-void EnQueue(TQueue& Q, int v);
-
-
-bool DeQueue(TQueue& Q, int& value);
-
-
-void _DestroyQueue(TQueueItem*& T);
-
-
-void DestroyQueue(TQueue& Q);
