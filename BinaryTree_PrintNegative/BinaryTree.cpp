@@ -1,14 +1,7 @@
-#include <iostream>
+#include "BinaryTree.h"
 using namespace std;
 
-struct Node
-{
-	int Data;
-	Node* Left;
-	Node* Right;
-};
-
-void PreOrder(Node* root)
+void PreOrder(TreeNode* root)
 {
 	if (root)
 	{
@@ -18,7 +11,7 @@ void PreOrder(Node* root)
 	}
 }
 
-void PostOrder(Node* root)
+void PostOrder(TreeNode* root)
 {
 	if (root)
 	{
@@ -28,7 +21,7 @@ void PostOrder(Node* root)
 	}
 }
 
-void InOrder(Node* root)
+void InOrder(TreeNode* root)
 {
 	if (root)
 	{
