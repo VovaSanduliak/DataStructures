@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include "Queue.h"
 #include "BinaryTree.h"
+#include "Queue.h"
 using namespace std;
 
-void Insert(TreeNode<int>*& root, int val)
+void Insert(TreeNode*& root, int val)
 {
 	if (root)
 	{
@@ -15,11 +15,13 @@ void Insert(TreeNode<int>*& root, int val)
 	}
 	else
 	{
-		root = new TreeNode<int>(val);
+		root = new TreeNode();
+		root->Data = val;
+
 	}
 }
 
-void FillTree(TreeNode<int>*& root)
+void FillTree(TreeNode*& root)
 {
 	ifstream file("data.txt");
 
@@ -33,10 +35,12 @@ void FillTree(TreeNode<int>*& root)
 	}
 }
 
-void PrintNegative(TreeNode<int>*& root)
+void PrintNegative(TreeNode*& root)
 {
 	if (root == nullptr) return;
 
+	TQueue<TreeNode> queue;
+	queue.Init();
 	
 	int a = 0;
 
@@ -44,7 +48,7 @@ void PrintNegative(TreeNode<int>*& root)
 
 int main()
 {
-	TreeNode<int>* tree = nullptr;
+	TreeNode* tree = nullptr;
 	FillTree(tree);
 	PrintNegative(tree);
 	cout << "H" << endl;

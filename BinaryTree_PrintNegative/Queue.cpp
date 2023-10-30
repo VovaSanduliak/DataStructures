@@ -1,22 +1,25 @@
 #include "Queue.h"
 using namespace std;
 
-void TQueue::InitQueue()
+template <typename T>
+void TQueue<T>::Init()
 {
 	Head = nullptr;
 	Tail = nullptr;
 }
 
-bool TQueue::IsEmpty()
+template <typename T>
+bool TQueue<T>::IsEmpty()
 {
 	return Head == nullptr;
 }
 
-void TQueue::EnQueue(int val)
+template <typename T>
+void TQueue<T>::EnQueue(T& val)
 {
 	if (IsEmpty())
 	{
-		Head = new TQueueItem;
+		Head = new TQueueItem<T>;
 		Head->Value = val;
 		Head->Next = nullptr;
 		Head->Prev = nullptr;
@@ -24,7 +27,7 @@ void TQueue::EnQueue(int val)
 	}
 	else
 	{
-		Tail->Next = new TQueueItem();
+		Tail->Next = new TQueueItem<T>;
 		Tail->Next->Value = val;
 		Tail->Next->Next = nullptr;
 		Tail->Next->Prev = Tail->Next;
@@ -32,12 +35,13 @@ void TQueue::EnQueue(int val)
 	}
 }
 
-bool TQueue::DeQueue(int& val)
+template <typename T>
+bool TQueue<T>::DeQueue(T& val)
 {
 	if (IsEmpty()) return false;
 
 	val = Head->Value;
-	TQueueItem* t = Head;
+	TQueueItem<T>* t = Head;
 	Head = Head->Next;
 	delete t;
 
@@ -49,17 +53,19 @@ bool TQueue::DeQueue(int& val)
 	return true;
 }
 
-void _DestroyQueue(TQueueItem*& T)
+template <typename T>
+void _DestroyQueue(TQueueItem<T>*& item)
 {
-	if (T)
+	if (item)
 	{
-		_DestroyQueue(T->Next);
-		delete T;
-		T = nullptr;
+		_DestroyQueue(item->Next);
+		delete item;
+		item = nullptr;
 	}
 }
 
-void TQueue::DestroyQueue()
+template <typename T>
+void TQueue<T>::DestroyQueue()
 {
 	_DestroyQueue(Head);
 	Tail = Head;
