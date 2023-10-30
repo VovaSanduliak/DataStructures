@@ -181,7 +181,7 @@ int main()
 	FillList(participants, "Participants.txt");
 	FillList(prizes, "Prizes.txt");
 
-	int N, K, T; // 5, 7, 10
+	int N, K, T;
 
 	cout << "Enter:\nN (number of winners)\nK (each Kth is winner)\nT (each winner gets each Tth prize):" << endl;
 	cin >> N >> K >> T;
@@ -217,12 +217,12 @@ int main()
 		//TRingListItem* tempParticipant = participant->Next;
 		//DeleteListItem(participants, *participant);
 		TRingListIterator tempParticipant = participant;
-		DeleteItem(participants, tempParticipant); // ? DeleteItem(participants, tempParticipant);
+		DeleteItem(participants, tempParticipant); //
 
 		//participant = tempParticipant;
 		//prize = prize->Next;
 		participant = tempParticipant;
-		MoveNext(participant);
+		//MoveNext(participant);
 		MoveNext(prize);
 	}
 
