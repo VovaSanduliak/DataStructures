@@ -11,14 +11,13 @@ void Insert(TreeNode*& root, int val)
 	{
 		if (val < root->Data)
 			Insert(root->Left, val);
-		else if (val > root->Data)
+		else
 			Insert(root->Right, val);
 	}
 	else
 	{
 		root = new TreeNode();
 		root->Data = val;
-
 	}
 }
 
@@ -44,12 +43,16 @@ void PrintNegative(TreeNode*& root)
 	queue.EnQueue(*root);
 	
 	int count = 0;
+	int layer = 1;
 	int elemsOnLevel = 1;
 
 	while (!queue.IsEmpty())
 	{
 		TreeNode node;
 		queue.DeQueue(node);
+
+		if (count == 0)
+			cout << layer << ") ";
 
 		if (node.Data < 0)
 			cout << node.Data << " ";
@@ -63,12 +66,11 @@ void PrintNegative(TreeNode*& root)
 		if (count == elemsOnLevel)
 		{
 			count = 0;
+			layer++;
 			elemsOnLevel *= 2;
 			NEWLINE
 		}
 	}
-
-	int a = 0;
 }
 
 int main()
