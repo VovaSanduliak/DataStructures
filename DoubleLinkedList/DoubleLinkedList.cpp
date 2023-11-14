@@ -11,20 +11,20 @@ struct TListItem
     TListItem *Next, *Prev;
 };
 
-struct TRingList
+struct TList
 {
     TListItem *First, *Last;
 };
 
-TRingList InitRingList()
+TList InitList()
 {
-    TRingList r;
+    TList r;
     r.First = NULL;
     r.Last = NULL;
     return r;
 }
 
-void AddListItem(TRingList &List, int val)
+void AddListItem(TList &List, int val)
 {
     if (List.First == NULL)
     {
@@ -44,7 +44,7 @@ void AddListItem(TRingList &List, int val)
     }
 }
 
-void DestroyList(TRingList& List)
+void DestroyList(TList& List)
 {
     TListItem *t = List.First;
     TListItem *r;
@@ -59,7 +59,7 @@ void DestroyList(TRingList& List)
     List.First = List.Last = NULL;
 }
 
-void PrintList(TRingList& List)
+void PrintList(TList& List)
 {
     TListItem *t = List.First;
 
@@ -73,7 +73,7 @@ void PrintList(TRingList& List)
 
 int main()
 {
-    TRingList List = InitRingList();
+    TList List = InitList();
 
     for (int i = 0; i < ListSize; i++)
     {

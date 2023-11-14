@@ -15,7 +15,7 @@ struct TListItem
     TListItem* Next, * Prev;
 };
 
-struct TRingList
+struct TList
 {
     TListItem* First, * Last;
 };
@@ -62,21 +62,21 @@ void SetValue(const TListIterator& It, int value)
         It.pointer->Value = value;
 }
 
-TListIterator GetBegin(TRingList& L)
+TListIterator GetBegin(TList& L)
 {
     TListIterator r;
     r.pointer = L.First;
     return r;
 }
 
-TListIterator GetEnd(TRingList& L)
+TListIterator GetEnd(TList& L)
 {
     TListIterator r;
     r.pointer = L.Last;
     return r;
 }
 
-void InsertAfter(TRingList& L, const TListIterator& It, int value)
+void InsertAfter(TList& L, const TListIterator& It, int value)
 {
     if (!IsValid(It))
         return;
@@ -91,7 +91,7 @@ void InsertAfter(TRingList& L, const TListIterator& It, int value)
         L.Last = t;
 }
 
-void InsertBefore(TRingList& L, const TListIterator& It, int value)
+void InsertBefore(TList& L, const TListIterator& It, int value)
 {
     if (!IsValid(It))
         return;
@@ -105,7 +105,7 @@ void InsertBefore(TRingList& L, const TListIterator& It, int value)
     if (It.pointer == L.First) L.First = t;
 }
 
-void DeleteItem(TRingList& L, TListIterator& It)
+void DeleteItem(TList& L, TListIterator& It)
 {
     if (!IsValid(It))
         return;
@@ -134,15 +134,15 @@ void DeleteItem(TRingList& L, TListIterator& It)
         L.First = NULL;
 }
 
-TRingList InitRingList()
+TList InitList()
 {
-    TRingList r;
+    TList r;
     r.First = NULL;
     r.Last = NULL;
     return r;
 }
 
-void AddListItem(TRingList& List, int val)
+void AddListItem(TList& List, int val)
 {
     if (List.First == NULL)
     {
@@ -162,7 +162,7 @@ void AddListItem(TRingList& List, int val)
     }
 }
 
-void DestroyList(TRingList& List)
+void DestroyList(TList& List)
 {
     TListItem* t = List.First;
     TListItem* r;
@@ -177,7 +177,7 @@ void DestroyList(TRingList& List)
     List.First = List.Last = NULL;
 }
 
-void PrintList(TRingList& List)
+void PrintList(TList& List)
 {
     TListItem* t = List.First;
 
@@ -189,7 +189,7 @@ void PrintList(TRingList& List)
 
 }
 
-void DoubleOdd(TRingList& List) {
+void DoubleOdd(TList& List) {
     TListIterator cur = GetBegin(List);
 
     while (IsValid(cur))
@@ -208,7 +208,7 @@ void DoubleOdd(TRingList& List) {
     }
 }
 
-void FillList(TRingList& List)
+void FillList(TList& List)
 {
     ifstream file("data.txt");
 
@@ -226,8 +226,8 @@ void FillList(TRingList& List)
 
 int main()
 {
-    TRingList L;
-    L = InitRingList();
+    TList L;
+    L = InitList();
     for (int i = 0; i < ListSize; i++)
     {
         AddListItem(L, i);
