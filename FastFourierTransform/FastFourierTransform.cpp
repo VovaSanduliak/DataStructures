@@ -75,7 +75,7 @@ vector<int> Multiply(vector<int> const& a, vector<int> const& b)
 int main()
 {
 	vector<int> polynom1 = { 1, 2, 3 };
-	vector<int> polynom2 = { 4, 5 };
+	vector<int> polynom2 = { 4, 5, 6 };
 
 	vector<int> result = Multiply(polynom1, polynom2);
 
